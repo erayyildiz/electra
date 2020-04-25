@@ -146,8 +146,8 @@ class BasicTokenizer(object):
 
   def tokenize(self, text):
     """Tokenizes a piece of text."""
-    # text = convert_to_unicode(text)
-    # text = self._clean_text(text)
+    text = convert_to_unicode(text)
+    text = self._clean_text(text)
 
     # This was added on November 1st, 2018 for the multilingual and Chinese
     # models. This is also applied to the English models now, but it doesn't
@@ -166,7 +166,6 @@ class BasicTokenizer(object):
     #   split_tokens.extend(self._run_split_on_punc(token))
     
     if self.do_lower_case:
-        text = text.lower()
         text = text.replace('İ', 'i')
         text = text.replace('I', 'ı')
         text = text.replace('Ç', 'ç')
@@ -174,6 +173,7 @@ class BasicTokenizer(object):
         text = text.replace('Ş', 'ş')
         text = text.replace('Ö', 'ö')
         text = text.replace('Ü', 'ü')
+        text = text.lower()
 
     output_tokens = whitespace_tokenize(text)
     return output_tokens
