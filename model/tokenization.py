@@ -176,7 +176,7 @@ class BasicTokenizer(object):
         text = text.lower()
 
     output_tokens = whitespace_tokenize(text)
-    return output_tokens
+    return text, output_tokens
 
   def _run_strip_accents(self, text):
     """Strips accents from a piece of text."""
