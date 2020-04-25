@@ -155,17 +155,27 @@ class BasicTokenizer(object):
     # and generally don't have any Chinese data in them (there are Chinese
     # characters in the vocabulary because Wikipedia does have some Chinese
     # words in the English Wikipedia.).
-    text = self._tokenize_chinese_chars(text)
+    # text = self._tokenize_chinese_chars(text)
 
-    orig_tokens = whitespace_tokenize(text)
-    split_tokens = []
-    for token in orig_tokens:
-      if self.do_lower_case:
-        token = token.lower()
-        # token = self._run_strip_accents(token)
-      split_tokens.extend(self._run_split_on_punc(token))
+    # orig_tokens = whitespace_tokenize(text)
+    # split_tokens = []
+    # for token in orig_tokens:
+    #   if self.do_lower_case:
+    #     token = token.lower()
+    #     # token = self._run_strip_accents(token)
+    #   split_tokens.extend(self._run_split_on_punc(token))
+    
+    if self.do_lower_case:
+        text = text.lower()
+        text = text.replace('İ', 'i')
+        text = text.replace('I', 'ı')
+        text = text.replace('Ç', 'ç')
+        text = text.replace('Ğ', 'ğ')
+        text = text.replace('Ş', 'ş')
+        text = text.replace('Ö', 'ö')
+        text = text.replace('Ü', 'ü')
 
-    output_tokens = whitespace_tokenize(" ".join(split_tokens))
+    output_tokens = whitespace_tokenize(text)
     return output_tokens
 
   def _run_strip_accents(self, text):
