@@ -157,14 +157,6 @@ class BasicTokenizer(object):
     # words in the English Wikipedia.).
     # text = self._tokenize_chinese_chars(text)
 
-    # orig_tokens = whitespace_tokenize(text)
-    # split_tokens = []
-    # for token in orig_tokens:
-    #   if self.do_lower_case:
-    #     token = token.lower()
-    #     # token = self._run_strip_accents(token)
-    #   split_tokens.extend(self._run_split_on_punc(token))
-    
     if self.do_lower_case:
         text = text.replace('İ', 'i')
         text = text.replace('I', 'ı')
@@ -173,10 +165,18 @@ class BasicTokenizer(object):
         text = text.replace('Ş', 'ş')
         text = text.replace('Ö', 'ö')
         text = text.replace('Ü', 'ü')
-        text = text.lower()
+        text = text.lower() 
 
-    output_tokens = whitespace_tokenize(text)
+    orig_tokens = whitespace_tokenize(text)
+    split_tokens = []
+    for token in orig_tokens:
+      if self.do_lower_case:
+        token = token.lower()
+        split_tokens.extend(self._run_split_on_punc(token))
+    
+    output_tokens = whitespace_tokenize(" ".join(split_tokens))
     return output_tokens
+
 
   def _run_strip_accents(self, text):
     """Strips accents from a piece of text."""
